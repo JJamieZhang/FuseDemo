@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import { FuseAnimate } from '@fuse';
+import { Avatar, Button, Hidden, Icon, IconButton, ListItemIcon, ListItemText, MenuItem, Popover, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
-import { Icon, IconButton, Typography, Popover, Button, Avatar, MenuItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import * as quickPanelActions from 'main/quickPanel/store/actions';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as quickPanelActions from 'main/quickPanel/store/actions';
 import { bindActionCreators } from 'redux';
-import { FuseAnimate } from '@fuse'
 
 const styles = theme => ({
 	root: {
@@ -14,8 +14,14 @@ const styles = theme => ({
 		alignItems: 'center',
 		width: '100%'
 	},
-	appName: {
-		fontSize: '24px',
+	breadcrum: {
+		textTransform: 'none',
+	},
+	breadcrumDivider: {
+		minWidth: '10px',
+		width: '10px',
+		paddingLeft: 0,
+		paddingRight: 0,
 	},
 	seperator: {
 		width: 1,
@@ -38,13 +44,19 @@ class MainToolbar extends Component {
 	};
 
 	render() {
-		const { classes, toggleQuickPanel } = this.props;
+		const { classes } = this.props;
 		const { userMenu } = this.state;
 		return (
 			<div className={classNames(classes.root, "flex flex-row")}>
 
 				<div className="flex flex-1 px-24">
-					<Typography color="primary" className={classes.appName}>Foresite</Typography>
+					<Button className={classes.breadcrum}>
+						<Icon>home</Icon>
+						Foresite</Button>
+					<Hidden mdDown>
+						<Button disabled className={classes.breadcrumDivider}>/</Button>
+						<Button className={classes.breadcrum}>Profile</Button>
+					</Hidden>
 				</div>
 
 				<div className="flex">
@@ -75,11 +87,11 @@ class MainToolbar extends Component {
 						onClose={this.userMenuClose}
 						anchorOrigin={{
 							vertical: 'bottom',
-							horizontal: 'center'
+							horizontal: 'right'
 						}}
 						transformOrigin={{
 							vertical: 'top',
-							horizontal: 'center'
+							horizontal: 'right'
 						}}
 						classes={{
 							paper: "py-8"

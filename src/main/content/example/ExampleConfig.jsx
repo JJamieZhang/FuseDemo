@@ -10,12 +10,6 @@ export const ExampleConfig = {
 		{
 			path: '/example',
 			component: Example
-		}, {
-			path: '/home',
-			component: Example
-		}, {
-			path: '/analytics',
-			component: Example
 		}
 	]
 };
